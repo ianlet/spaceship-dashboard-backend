@@ -3,7 +3,7 @@
 const _ = require('lodash')
 const VerificationStageEvent = require('./stage_event.model')
 const ProgressResult = require('./progress_result.model')
-const Progress = require('../../domain/progress')
+const Progress = require('../../../domain/progress')
 
 const teamEventReducer = (teamEvents, event) => {
     const stageName = _.camelCase(event.stage)

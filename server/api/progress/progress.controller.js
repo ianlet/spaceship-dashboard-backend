@@ -1,6 +1,6 @@
 'use strict'
 
-const ProgressRepository = require('../../persistence/mongo/progress_repository')
+const ProgressRepository = require('../../persistence/mongo/progress/progress.repository')
 const ProgressAssembler = require('./progress.assembler')
 
 
