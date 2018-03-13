@@ -28,6 +28,25 @@ MONGO_DATABASE=spaceship
 
 ### Usage
 
+#### Get user stories
+
+##### Request
+
+```
+GET /user-story
+```
+
+##### Response
+
+```json
+{
+  "userStories": [
+    "sendSuppliesToAResearchTeam",
+    "anotherSuperUserStory"
+  ]
+}
+```
+
 #### Get team progresses
 
 ##### Request
