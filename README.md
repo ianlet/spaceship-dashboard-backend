@@ -26,4 +26,34 @@ MONGO_HOST=localhost
 MONGO_DATABASE=spaceship
 ```
 
+### Usage
 
+#### Get team progresses
+
+##### Request
+
+```
+GET /progress
+```
+
+##### Response
+
+```json
+[
+  {
+    "team": "webpackpros",
+    "stages": {
+      "build": "succeeded",
+      "test": "started",
+      "trackProgress": "failed"
+    },
+    "userStories": {
+      "sendSuppliesToAResearchTeam": "failed",
+      "anotherSuperUserStory": "succeeded"
+    },
+    "points": 0,
+    "penalties": 0,
+    "deathCount": 0
+  }
+]
+```
