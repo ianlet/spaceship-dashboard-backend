@@ -4,6 +4,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const config = require('./config/environment')
 
@@ -16,6 +17,8 @@ mongoose.connection.on('error', (err) => {
 })
 
 const app = express()
+app.use(cors())
+
 const server = require('http').createServer(app)
 require('./config/express')(app)
 require('./routes')(app)

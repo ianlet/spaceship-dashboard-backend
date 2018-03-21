@@ -2,7 +2,6 @@
 
 class ProgressDto {
     constructor(team, stages, userStories, points, penalties, deathCount) {
-      this.rank = 0
         this.team = team
         this.stages = stages
         this.userStories = userStories

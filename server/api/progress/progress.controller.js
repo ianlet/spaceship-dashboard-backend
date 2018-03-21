@@ -8,6 +8,7 @@ exports.index = async (req, res) => {
     try {
         const progresses = await ProgressRepository.find()
         const progressDtos = progresses.map(ProgressAssembler.toDto)
+        progressDtos.forEach((progressDto, i) => progressDto.rank = i + 1)
         return res.status(200).json(progressDtos)
     } catch (_) {
         return res.status(200).json([])
