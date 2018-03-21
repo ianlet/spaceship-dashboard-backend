@@ -22,8 +22,8 @@ const extractLastStatus = (items) => {
 
 const toDto = (progress) => {
     const { team, points, penalties, deathCount } = progress
-    const stages = extractLastStatus(progress.stages)
-    const userStories = extractLastStatus(progress.userStories)
+  const stages = progress.stages ? extractLastStatus(progress.stages) : {}
+  const userStories = progress.userStories ? extractLastStatus(progress.userStories) : {}
     return new ProgressDto(team, stages, userStories, points, penalties, deathCount)
 }
 
