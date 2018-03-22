@@ -32,10 +32,11 @@ const toDto = (progress) => {
   const points = progress.calculatePoints()
   const penalties = progress.calculatePenalties()
   const deaths = progress.calculateDeaths()
+  const score = progress.calculateScore()
   const stages = extractLastStatus(progress.stages)
   const allUserStories = progress.userStories.reduce(userStoriesReducer, {})
   const userStories = extractLastStatus(allUserStories)
-  return new ProgressDto(team, stages, userStories, points, penalties, deaths)
+  return new ProgressDto(team, stages, userStories, points, penalties, deaths, score)
 }
 
 module.exports = { toDto }

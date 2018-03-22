@@ -24,6 +24,10 @@ class Progress {
     return userStoryDeaths + buildDeaths + testDeaths
   }
 
+  calculateScore () {
+    return this.calculatePoints() - this.calculatePenalties() - (2 * this.calculateDeaths())
+  }
+
   _calculateDeathsForStages (stages) {
     const failedStages = stages.filter((stage) => stage.status === 'failed')
     const failedUserStories = this._filterAvailableUserStoriesForStages(failedStages)
