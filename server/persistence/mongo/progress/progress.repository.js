@@ -27,7 +27,7 @@ const teamEventReducer = (teamEvents, event) => {
 const teamResultReducer = (teamResults, result) => {
     const userStoryName = _.camelCase(result.userStory)
     const results = teamResults[result.team] || []
-    const userStoryResults = teamResults[userStoryName] || []
+    const userStoryResults = results[userStoryName] || []
     return {
         ...teamResults,
         [result.team]: {
@@ -50,8 +50,8 @@ const find = async () => {
     const teamResults = results.reduce(teamResultReducer, {})
 
     return Object.keys(teamEvents).map((team) => {
-        const stages = teamEvents[team]
-        const userStories = teamResults[team]
+        const stages = teamEvents[team] ? teamEvents[team] : {}
+        const userStories = teamResults[team] ? teamResults[team] : {}
         return new Progress(team, stages, userStories)
     })
 }
