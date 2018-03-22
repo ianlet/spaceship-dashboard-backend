@@ -12,7 +12,7 @@ class Progress {
   }
 
   calculatePenalties () {
-    return 0
+    return this.userStories.reduce((penalties, userStory) => penalties + userStory.calculatePenalties(), 0)
   }
 
   calculateDeathCount () {

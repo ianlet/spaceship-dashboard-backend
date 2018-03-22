@@ -37,6 +37,9 @@ const teamResultReducer = (teamResults, result) => {
         ...userStoryResults,
         {
           status: _.lowerCase(result.result),
+          points: result.points,
+          penalties: result.penalties,
+          deaths: result.deaths,
           timestamp: result.timestamp
         }
       ]

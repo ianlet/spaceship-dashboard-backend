@@ -6,6 +6,9 @@ const Schema = mongoose.Schema
 const ProgressResultSchema = new Schema({
   team: String,
   userStory: String,
+  points: Number,
+  penalties: Number,
+  deaths: Number,
   result: String,
   timestamp: Date
 })
