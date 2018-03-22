@@ -5,6 +5,7 @@ const VerificationStageEvent = require('./stage_event.model')
 const ProgressResult = require('./progress_result.model')
 const Progress = require('../../../domain/progress')
 const UserStory = require('../../../domain/user_story')
+const AvailabilityService = require('../../../domain/availability.service')
 
 const teamEventReducer = (teamEvents, event) => {
   const stageName = _.camelCase(event.stage)
@@ -52,15 +53,21 @@ const find = async () => {
   const teamEvents = events.reduce(teamEventReducer, {})
   const results = await ProgressResult.find().exec()
   const teamResults = results.reduce(teamResultReducer, {})
+  const userStoryAvailabilities = AvailabilityService.findUserStoryAvailabilities(results)
 
   return Object.keys(teamEvents).map((team) => {
     const stages = teamEvents[team] ? teamEvents[team] : {}
     const userStoriesResults = teamResults[team] ? teamResults[team] : {}
-    const userStories = Object.keys(userStoriesResults).map((userStoryName) => {
-      const userStoryResults = userStoriesResults[userStoryName]
-      return new UserStory(userStoryName, userStoryResults)
+    const userStories = Object.keys(userStoryAvailabilities).map((userStoryName) => {
+      const points = userStoryAvailabilities[userStoryName].points
+      const penalties = userStoryAvailabilities[userStoryName].penalties
+      const deaths = userStoryAvailabilities[userStoryName].deaths
+      const availableAt = userStoryAvailabilities[userStoryName].availableAt
+      const userStoryResults = userStoriesResults[userStoryName] ? userStoriesResults[userStoryName] : []
+      return new UserStory(userStoryName, points, penalties, deaths, userStoryResults, availableAt)
     })
-    return new Progress(team, stages, userStories)
+    const progress = new Progress(team, stages, userStories)
+    return progress
   })
 }
 

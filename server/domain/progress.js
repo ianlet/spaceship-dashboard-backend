@@ -19,8 +19,8 @@ class Progress {
 
   calculateDeaths () {
     const userStoryDeaths = this.userStories.reduce((deaths, userStory) => deaths + userStory.calculateDeaths(), 0)
-    const buildDeaths = this._calculateDeathsForStages(this.stages.build)
-    const testDeaths = this._calculateDeathsForStages(this.stages.test)
+    const buildDeaths = this.stages.build ? this._calculateDeathsForStages(this.stages.build) : 0
+    const testDeaths = this.stages.test ? this._calculateDeathsForStages(this.stages.test) : 0
     return userStoryDeaths + buildDeaths + testDeaths
   }
 

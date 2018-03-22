@@ -4,26 +4,33 @@ const _ = require('lodash')
 const moment = require('moment')
 
 class UserStory {
-  constructor (name, results, availableAt) {
+  constructor (name, points, penalties, deaths, results, availableAt) {
     this.name = name
     this.results = _.sortBy(results, 'timestamp')
     this.availableAt = availableAt
-  }
-
-  get points () {
-    const lastResult = _.last(this.results)
-    return lastResult.points ? lastResult.points : 0
-  }
-
-  get penalties () {
-    const lastResult = _.last(this.results)
-    return lastResult.penalties ? lastResult.penalties : 0
+    this.points = points ? points : 0
+    this.penalties = penalties ? penalties : 0
+    this.deaths = deaths ? deaths : 0
   }
 
   get deathCount () {
-    const lastResult = _.last(this.results)
-    return lastResult.deaths ? lastResult.deaths : 0
+    return this.deaths
   }
+
+  // get points () {
+  //   const lastResult = _.last(this.results)
+  //   return lastResult && lastResult.points ? lastResult.points : 0
+  // }
+  //
+  // get penalties () {
+  //   const lastResult = _.last(this.results)
+  //   return lastResult && lastResult.penalties ? lastResult.penalties : 0
+  // }
+  //
+  // get deathCount () {
+  //   const lastResult = _.last(this.results)
+  //   return lastResult && lastResult.deaths ? lastResult.deaths : 0
+  // }
 
   calculatePoints () {
     return this._hasFailed() ? 0 : this.points
@@ -36,16 +43,17 @@ class UserStory {
   calculateDeaths () {
     return this.results
       .filter((result) => result.status === 'failed')
-      .reduce((deaths, result) => deaths + result.deaths, 0)
+      .reduce((deaths, result) => deaths + this.deaths, 0)
   }
 
   wasAvailableAt (timestamp) {
-    return moment(this.availableAt).isSameOrBefore(timestamp)
+    const time = moment(timestamp).add(5, 'minutes')
+    return moment(this.availableAt).isSameOrBefore(time)
   }
 
   _hasFailed () {
     const lastResult = _.last(this.results)
-    return lastResult.status === 'failed'
+    return !lastResult || lastResult.status === 'failed'
   }
 
   _hasRegressed () {

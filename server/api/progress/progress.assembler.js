@@ -9,7 +9,7 @@ const extractLastStatus = (items) => {
     const sortedStatuses = _.sortBy(statuses, ['timestamp'])
     const itemStatus = _.last(sortedStatuses)
     return {
-      [item]: itemStatus.status
+      [item]: itemStatus ? itemStatus.status : 'failed'
     }
   })
   return itemStatuses.reduce((statuses, itemStatus) => {
