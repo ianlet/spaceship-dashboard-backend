@@ -17,7 +17,7 @@ const extractLastStatus = (items) => {
             ...statuses,
             ...itemStatus
         }
-    })
+    }, {})
 }
 
 const toDto = (progress) => {
