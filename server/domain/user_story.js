@@ -8,16 +8,27 @@ class UserStory {
     this.results = _.sortBy(results, 'timestamp')
   }
 
-  calculatePoints () {
+  get points () {
     const lastResult = _.last(this.results)
-    const points = (lastResult.status === 'failed') ? 0 : lastResult.points
-    return points ? points : 0
+    return lastResult.points ? lastResult.points : 0
+  }
+
+  get penalties () {
+    const lastResult = _.last(this.results)
+    return lastResult.penalties ? lastResult.penalties : 0
+  }
+
+  calculatePoints () {
+    return this._hasFailed() ? 0 : this.points
   }
 
   calculatePenalties () {
+    return this._hasRegressed() ? this.penalties : 0
+  }
+
+  _hasFailed () {
     const lastResult = _.last(this.results)
-    const penalties = lastResult.penalties ? lastResult.penalties : 0
-    return this._hasRegressed() ? penalties : 0
+    return lastResult.status === 'failed'
   }
 
   _hasRegressed () {
