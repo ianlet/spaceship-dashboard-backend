@@ -1,9 +1,9 @@
 'use strict'
 
 const find = async () => {
-    return {
-        userStories: ['sendSuppliesToAResearchTeam']
-    }
+  return {
+    userStories: ['sendSuppliesToAResearchTeam']
+  }
 }
 
 module.exports = { find }

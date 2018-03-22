@@ -12,8 +12,8 @@ const config = require('./config/environment')
 mongoose.connect(config.mongo.uri, config.mongo.options)
 
 mongoose.connection.on('error', (err) => {
-    console.error('MongoDB connection error: ' + err)
-    process.exit(-1)
+  console.error('MongoDB connection error: ' + err)
+  process.exit(-1)
 })
 
 const app = express()
@@ -24,7 +24,7 @@ require('./config/express')(app)
 require('./routes')(app)
 
 server.listen(config.port, config.ip, function () {
-    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'))
+  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'))
 })
 
 exports = module.exports = app
