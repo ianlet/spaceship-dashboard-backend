@@ -5,13 +5,10 @@ class Progress {
     this.team = team
     this.stages = stages
     this.userStories = userStories
-    this.points = this.calculatePoints()
-    this.penalties = this.calculatePenalties()
-    this.deathCount = this.calculateDeathCount()
   }
 
   calculatePoints () {
-    return 0
+    return this.userStories.reduce((points, userStory) => points + userStory.calculatePoints(), 0)
   }
 
   calculatePenalties () {

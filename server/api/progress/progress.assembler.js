@@ -20,10 +20,21 @@ const extractLastStatus = (items) => {
   }, {})
 }
 
+const userStoriesReducer = (userStories, userStory) => {
+  return {
+    ...userStories,
+    [userStory.name]: userStory.results
+  }
+}
+
 const toDto = (progress) => {
-  const { team, points, penalties, deathCount } = progress
-  const stages = progress.stages ? extractLastStatus(progress.stages) : {}
-  const userStories = progress.userStories ? extractLastStatus(progress.userStories) : {}
+  const { team } = progress
+  const points = progress.calculatePoints()
+  const penalties = progress.calculatePenalties()
+  const deathCount = progress.calculateDeathCount()
+  const stages = extractLastStatus(progress.stages)
+  const allUserStories = progress.userStories.reduce(userStoriesReducer, {})
+  const userStories = extractLastStatus(allUserStories)
   return new ProgressDto(team, stages, userStories, points, penalties, deathCount)
 }
 

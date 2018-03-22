@@ -4,6 +4,7 @@ const _ = require('lodash')
 const VerificationStageEvent = require('./stage_event.model')
 const ProgressResult = require('./progress_result.model')
 const Progress = require('../../../domain/progress')
+const UserStory = require('../../../domain/user_story')
 
 const teamEventReducer = (teamEvents, event) => {
   const stageName = _.camelCase(event.stage)
@@ -51,7 +52,11 @@ const find = async () => {
 
   return Object.keys(teamEvents).map((team) => {
     const stages = teamEvents[team] ? teamEvents[team] : {}
-    const userStories = teamResults[team] ? teamResults[team] : {}
+    const userStoriesResults = teamResults[team] ? teamResults[team] : {}
+    const userStories = Object.keys(userStoriesResults).map((userStoryName) => {
+      const userStoryResults = userStoriesResults[userStoryName]
+      return new UserStory(userStoryName, userStoryResults)
+    })
     return new Progress(team, stages, userStories)
   })
 }
