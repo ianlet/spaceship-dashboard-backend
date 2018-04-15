@@ -1,6 +1,6 @@
 # CS Games 2018 ULaval - Spaceship Dashboard API
 
-### Dependencies
+## Dependencies
 
 ```
 nodejs
@@ -9,14 +9,14 @@ mongo
 ```
 
 
-### Running
+## Running
 
 ```sh
 yarn install
 yarn start
 ```
 
-### Configuration
+## Configuration
 
 You can configure the server with the following environment variables:
 ```sh
@@ -26,41 +26,22 @@ MONGO_HOST=localhost
 MONGO_DATABASE=spaceship
 ```
 
-### Usage
+## Usage
 
-#### Get user stories
+### Get team progresses
 
-##### Request
-
-```
-GET /user-story
-```
-
-##### Response
-
-```json
-{
-  "userStories": [
-    "sendSuppliesToAResearchTeam",
-    "anotherSuperUserStory"
-  ]
-}
-```
-
-#### Get team progresses
-
-##### Request
+#### Request
 
 ```
 GET /progress
 ```
 
-##### Response
+#### Response
 
 ```json
 [
   {
-    "team": "webpackpros",
+    "team": "team-name",
     "stages": {
       "build": "succeeded",
       "test": "started",
@@ -72,7 +53,10 @@ GET /progress
     },
     "points": 0,
     "penalties": 0,
-    "deathCount": 0
+    "deaths": 0,
+    "score": 15,
+    "rank": 1
   }
 ]
 ```
+
